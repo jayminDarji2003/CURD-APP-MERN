@@ -1,30 +1,44 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import AddNewUser from "./AddNewUser";
+import EditUser from "./EditUser";
 
 // fetch the data from db
 // show
 
 function Body() {
   const [users, setUsers] = useState([]);
+  const [showCreateNewUser, setShorCreateNewUser] = useState(false);
+  const [showEditUser, setShowEditUser] = useState(false);
+  const [editUserId, setEditUserId] = useState("");
 
   const handleCreateNew = () => {
-    toast.success("create new user");
+    setShorCreateNewUser(true);
   };
 
-  const handleEditUser = () => {
-    toast.success("edited user");
+  const handleEditUser = (id) => {
+    setShowEditUser(true);
+    setEditUserId(id);
   };
 
-  const handleDeleteUser = () => {
-    toast.success("deleted user");
+  const handleDeleteUser = async (userId) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:4000/api/deleteUser/${userId}`
+      );
+      console.log(response);
+      toast.success("USER DELETED SUCCESSFUL");
+    } catch (error) {
+      toast.error("SOMETHING WENT WRONG");
+    }
   };
 
   async function getUserData() {
     try {
       const user = await axios.get("http://localhost:4000/api/users");
       const response = await user.data.allUsers;
-      console.log(response);
+      //   console.log(response);
       setUsers(response);
     } catch (error) {
       console.log("ERROR OCCURED WHILE FETCHING THE DATA");
@@ -33,7 +47,7 @@ function Body() {
 
   useEffect(() => {
     getUserData();
-  }, []);
+  }, [users]);
 
   return (
     <>
@@ -93,7 +107,11 @@ function Body() {
 
                           <td className="border-gray-200 border  p-3 ">
                             <div className="flex gap-4 justify-center">
-                              <button onClick={handleEditUser}>
+                              <button
+                                onClick={() => {
+                                  handleEditUser(user._id);
+                                }}
+                              >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   viewBox="0 0 24 24"
@@ -118,7 +136,11 @@ function Body() {
                                 </svg>
                               </button>
 
-                              <button onClick={handleDeleteUser}>
+                              <button
+                                onClick={() => {
+                                  handleDeleteUser(user._id);
+                                }}
+                              >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   viewBox="0 0 24 24"
@@ -164,6 +186,9 @@ function Body() {
           </div>
         </div>
       </div>
+
+      {showCreateNewUser && <AddNewUser isOpen={true} />}
+      {showEditUser && <EditUser userId={editUserId} isOpen={true} />}
     </>
   );
 }
