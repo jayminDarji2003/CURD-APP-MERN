@@ -112,7 +112,7 @@ const AddNewUser = ({ isOpen }) => {
 
               <div className="flex items-center justify-center w-full">
                 <button
-                  className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm"
+                  className="focus:outline-none focus:ring-2 focus:ring-offset-2  transition duration-150 ease-in-out hover:bg-teal-500 bg-teal-400 rounded text-white px-8 py-2 text-sm"
                   onClick={handleSubmit}
                 >
                   Submit
