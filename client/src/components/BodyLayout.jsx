@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
-import AddNewUser from "./AddNewUser";
-import EditUser from "./EditUser";
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
 // fetch the data from db
@@ -10,19 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Body() {
   const [users, setUsers] = useState([]);
-  const [showCreateNewUser, setShorCreateNewUser] = useState(false);
-  const [showEditUser, setShowEditUser] = useState(false);
-  const [editUserId, setEditUserId] = useState("");
   const navigate = useNavigate();
-
-  const handleCreateNew = () => {
-    setShorCreateNewUser(true);
-  };
-
-  const handleEditUser = (id) => {
-    setShowEditUser(true);
-    setEditUserId(id);
-  };
 
   const handleDeleteUser = async (userId) => {
     try {
@@ -53,8 +39,6 @@ function Body() {
 
   return (
     <>
-      {/* <Toaster /> */}
-
       <div>
         <div>
           <h1 className="font-bold  text-2xl text-center m-3 text-teal-400">
@@ -64,10 +48,7 @@ function Body() {
 
         <div className="m-5">
           <div>
-            <button
-              className="bg-teal-400 text-white font-bold py-2 px-4"
-              onClick={handleCreateNew}
-            >
+            <button className="bg-teal-400 text-white font-bold py-2 px-4">
               <Link to={"/create"}>+ Add new</Link>
             </button>
           </div>
@@ -111,7 +92,6 @@ function Body() {
                             <div className="flex gap-4 justify-center">
                               <button
                                 onClick={() => {
-                                  handleEditUser(user._id);
                                   navigate(`/update/${user._id}`);
                                 }}
                               >
@@ -189,9 +169,6 @@ function Body() {
           </div>
         </div>
       </div>
-
-      {showCreateNewUser && <AddNewUser isOpen={true} />}
-      {showEditUser && <EditUser userId={editUserId} isOpen={true} />}
     </>
   );
 }

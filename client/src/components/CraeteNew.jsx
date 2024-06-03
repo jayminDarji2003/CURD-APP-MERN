@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CraeteNew = () => {
   const navigate = useNavigate();
@@ -9,7 +9,6 @@ const CraeteNew = () => {
   const [fatherName, setFatherName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  
 
   const handleCancel = () => {
     navigate("/");
@@ -108,6 +107,7 @@ const CraeteNew = () => {
               className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
               placeholder="9987887811"
               required
+              maxLength={10}
               onChange={(e) => setPhone(e.target.value)}
             />
 

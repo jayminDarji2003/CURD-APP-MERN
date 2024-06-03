@@ -56,6 +56,39 @@ const getAllUsers = async (req, res) => {
     }
 }
 
+// GET SINGLE USER
+const getSingleUser = async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        const user = await User.findOne({ _id: id })
+
+        if (!user) {
+            return res.status(404).json({
+                success: true,
+                message: "USER NOT FOUND IN DATABASE"
+            })
+        }
+
+        console.log(user);
+
+        return res.status(200).json({
+            success: true,
+            message: "USER FOUND IN DATABASE",
+            user
+        })
+
+
+    } catch (error) {
+        console.log(error);
+        return res.status(404).json({
+            success: false,
+            message: "ERROR OCCURED WHILE GETTING USER FROM DATABASE"
+        })
+    }
+}
+
+
 
 // update
 // updateUser
@@ -119,4 +152,4 @@ const deleteUser = async (req, res) => {
 
 
 
-export { createUser, getAllUsers, updateUser, deleteUser }
+export { createUser, getAllUsers, updateUser, deleteUser,getSingleUser }

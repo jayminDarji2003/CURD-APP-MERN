@@ -5,17 +5,31 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const UpdateUser = () => {
   const { id } = useParams();
+  const [userData, setUserData] = useState({});
+  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [fatherName, setFatherName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
 
   async function getSingleUserData() {
     try {
+      const user = await axios.get(`http://localhost:4000/api/user/${id}`);
+      setUserData(user?.data?.user);
+      setName(user?.data?.user?.name);
+      setFatherName(user?.data?.user?.fatherName);
+      setEmail(user?.data?.user?.email);
+      setPhone(user?.data?.user?.phoneNumber);
     } catch (error) {
       console.log("ERROR OCCURED WHILE FETCHING SINGLE USER DATA.");
     }
   }
 
+  //console.log(userData);
+
   useEffect(() => {
     getSingleUserData();
-  });
+  }, []);
 
   const handleCancel = () => {
     navigate("/");
@@ -69,6 +83,7 @@ const UpdateUser = () => {
               className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
               placeholder="Dev"
               required
+              value={name}
               onChange={(e) => setName(e.target.value)}
             />
 
@@ -84,6 +99,7 @@ const UpdateUser = () => {
               className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
               placeholder="Manish bhai"
               required
+              value={fatherName}
               onChange={(e) => setFatherName(e.target.value)}
             />
 
@@ -99,6 +115,7 @@ const UpdateUser = () => {
               className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
               placeholder="Enter email"
               required
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
 
@@ -114,6 +131,8 @@ const UpdateUser = () => {
               className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
               placeholder="9987887811"
               required
+              maxLength={10}
+              value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
 
