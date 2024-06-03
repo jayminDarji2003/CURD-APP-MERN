@@ -3,6 +3,7 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import AddNewUser from "./AddNewUser";
 import EditUser from "./EditUser";
+import { Link, useNavigate } from "react-router-dom";
 
 // fetch the data from db
 // show
@@ -12,6 +13,7 @@ function Body() {
   const [showCreateNewUser, setShorCreateNewUser] = useState(false);
   const [showEditUser, setShowEditUser] = useState(false);
   const [editUserId, setEditUserId] = useState("");
+  const navigate = useNavigate();
 
   const handleCreateNew = () => {
     setShorCreateNewUser(true);
@@ -66,7 +68,7 @@ function Body() {
               className="bg-teal-400 text-white font-bold py-2 px-4"
               onClick={handleCreateNew}
             >
-              + Add new
+              <Link to={"/create"}>+ Add new</Link>
             </button>
           </div>
 
@@ -110,6 +112,7 @@ function Body() {
                               <button
                                 onClick={() => {
                                   handleEditUser(user._id);
+                                  navigate(`/update/${user._id}`);
                                 }}
                               >
                                 <svg
