@@ -17,7 +17,7 @@ const CraeteNew = () => {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/createUser",
+        "https://curd-app-backend.onrender.com/api/createUser",
         {
           name,
           fatherName,

@@ -13,7 +13,7 @@ function Body() {
   const handleDeleteUser = async (userId) => {
     try {
       const response = await axios.delete(
-        `http://localhost:4000/api/deleteUser/${userId}`
+        `https://curd-app-backend.onrender.com/api/deleteUser/${userId}`
       );
       console.log(response);
       toast.success("USER DELETED SUCCESSFUL");
@@ -24,7 +24,7 @@ function Body() {
 
   async function getUserData() {
     try {
-      const user = await axios.get("http://localhost:4000/api/users");
+      const user = await axios.get("https://curd-app-backend.onrender.com/api/users");
       const response = await user.data.allUsers;
       //   console.log(response);
       setUsers(response);

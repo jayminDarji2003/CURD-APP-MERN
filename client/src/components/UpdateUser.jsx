@@ -14,7 +14,9 @@ const UpdateUser = () => {
 
   async function getSingleUserData() {
     try {
-      const user = await axios.get(`http://localhost:4000/api/user/${id}`);
+      const user = await axios.get(
+        `https://curd-app-backend.onrender.com/api/user/${id}`
+      );
       setUserData(user?.data?.user);
       setName(user?.data?.user?.name);
       setFatherName(user?.data?.user?.fatherName);
@@ -38,7 +40,7 @@ const UpdateUser = () => {
   const handleSubmit = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/updateUser/${id}`,
+        `https://curd-app-backend.onrender.com/api/updateUser/${id}`,
         {
           name,
           fatherName,
